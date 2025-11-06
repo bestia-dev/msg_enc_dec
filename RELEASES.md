@@ -11,6 +11,8 @@ The TODO section is part of the [README.md](https://github.com/bestia-dev/msg_en
 
 ## Unreleased
 
+## Version 1.0.21 (2025-11-06)
+
 - ResultLogError
 
 ## Version 1.0.2 (2025-10-14)
