@@ -108,3 +108,19 @@ The particular set of 64 characters chosen to represent the 64-digit values for 
 The base64url RFC 4648 §5 standard is URL and filename-safe, where the '+' and '/' characters are replaced by '-' and '_'.  
 The = symbol is also used as a padding suffix. The padding character is not essential for decoding, since the number of missing bytes can be inferred from the length of the encoded text. In some implementations, the padding character is mandatory, while for others it is not used.
 <https://en.wikipedia.org/wiki/Base64>
+
+## Debug with tracing and log to file
+
+For debugging purposes the program has tracing and log to file.  
+If the environment variable MSG_ENC_DEC_LOG exists than the tracing to file is enabled.  
+The log is appended to files in the local `logs/` folder.  
+In the env var MSG_ENC_DEC_LOG we can define filters.  
+A filter consists of one or more comma-separated directives
+target[span{field=value}]=level
+Levels order: 1. ERROR, 2. WARN, 3. INFO, 4. DEBUG, 5. TRACE
+ERROR level is always logged.
+Example of filter for a single execution:
+
+```bash
+MSG_ENC_DEC_LOG="debug,hyper_util=info,reqwest=info" ./{package_name}
+```

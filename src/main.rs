@@ -4,156 +4,53 @@
 //! # msg_enc_dec
 //!
 //! **Use SSH keys, Ed22519, X25519 and GCM to encrypt and decrypt messages and files for communication**  
-//! ***version: 1.0.2 date: 2025-10-14 author: [bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/msg_enc_dec)***
+//! ***version: 1.0.21 date: 2025-11-06 author: [bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/msg_enc_dec)***
 //!
 //!  ![maintained](https://img.shields.io/badge/maintained-green)
-//!  ![ready-for-use](https://img.shields.io/badge/ready_for_use-yellow)
+//!  ![ready-for-use](https://img.shields.io/badge/ready_for_use-green)
 //!  ![rustlang](https://img.shields.io/badge/rustlang-orange)
 //!
 //!  ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 //!  ![Rust](https://github.com/bestia-dev/msg_enc_dec/workflows/rust_fmt_auto_build_test/badge.svg)
 //!  ![msg_enc_dec](https://bestia.dev/webpage_hit_counter/get_svg_image/124137175.svg)
 //!
-//! [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-607-green.svg)](https://github.com/bestia-dev-ready-for-use/msg_enc_dec/)
-//! [![Lines in Doc comments](https://img.shields.io/badge/Lines_in_Doc_comments-91-blue.svg)](https://github.com/bestia-dev-ready-for-use/msg_enc_dec/)
-//! [![Lines in Comments](https://img.shields.io/badge/Lines_in_comments-77-purple.svg)](https://github.com/bestia-dev-ready-for-use/msg_enc_dec/)
-//! [![Lines in examples](https://img.shields.io/badge/Lines_in_examples-0-yellow.svg)](https://github.com/bestia-dev-ready-for-use/msg_enc_dec/)
-//! [![Lines in tests](https://img.shields.io/badge/Lines_in_tests-0-orange.svg)](https://github.com/bestia-dev-ready-for-use/msg_enc_dec/)
+//! [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-648-green.svg)]()
+//! [![Lines in Doc comments](https://img.shields.io/badge/Lines_in_Doc_comments-276-blue.svg)]()
+//! [![Lines in Comments](https://img.shields.io/badge/Lines_in_comments-78-purple.svg)]()
+//! [![Lines in examples](https://img.shields.io/badge/Lines_in_examples-0-yellow.svg)]()
+//! [![Lines in tests](https://img.shields.io/badge/Lines_in_tests-0-orange.svg)]()
 //!
 //! Hashtags: #maintained #ready-for-use #rustlang  
 //! My projects on GitHub are more like a tutorial than a finished product: [bestia-dev tutorials](https://github.com/bestia-dev/tutorials_rust_wasm).  
 //!
 //! ## ⚠️ Security Warning
 //!
-//! The implementation contained in this crate has never been independently audited!
-//!
+//! The implementation contained in this crate has never been independently audited!  
 //! USE AT YOUR OWN RISK!
 //!
 //! ## Try it
 //!
-//! For encrypted communication between two parties, both must use msg_enc_dec.  
+//! For encrypted communication between two parties, both parties must use msg_enc_dec.  
 //! Install msg_enc_dec from GitHub.  
-//! It is preferred to use Rust locally to build the program, so you know exactly the source code.
+//! It is preferred to use Rust locally to build the program, so you know exactly the source code and you can review it.  
+//! I use the [CRUSTDE](https://github.com/CRUSTDE-ContainerizedRustDevEnv/crustde_cnt_img_pod) container to run Rust programs inside an isolated environment to not compromise my base operating system.  
+//!
+//! ## On Linux
+//!
+//! Linux everywhere!  
+//! On Linux (I use Debian inside [WSL on Windows](https://github.com/CRUSTDE-ContainerizedRustDevEnv/crustde_cnt_img_pod)):  
 //!
 //! ```bash
 //! cd ~/rustprojects
-//! git clone git@github.com:bestia-dev-ready-for-use/msg_enc_dec.git
+//! git clone git@github.com:bestia-dev/msg_enc_dec.git
 //! code msg_enc_dec
 //! cargo auto release
 //! alias msg_enc_dec="./target/release/msg_enc_dec"
 //! msg_enc_dec --help
 //! ```
 //!
-//! ![alt text](images/image_01.png)
-//!
-//!
-//! ## activate bash completion
-//!
-//!
-//!
-//! ## Create your SSH key
-//!
-//! Create the SSH key and protect it with a passcode.
-//!
-//! ```bash
-//! ssh-keygen -t rsa -b 2048 -f msg_enc_dec_ssh_1 -C "ssh key for msg_enc_dec"
-//! ```
-//!
-//! Save the file `msg_enc_dec_config.json` with the content:
-//!
-//! ```json
-//! {
-//! "msg_enc_dec_private_key_file_name":"msg_enc_dec_ssh_1"
-//! }
-//! ```
-//!
-//! The program `msg_enc_dec` will read this file to find the SSH private key in the . folder.
-//!
-//! ## 1. Party_1: Send your SSH public key
-//!
-//! To start the secure communication send your public key. This is not a secret.
-//!
-//! ## 2. Party_2: Encrypt a password
-//!
-//! The party_2 will encrypt an ephemeral password with the received public key. The only one who can decrypt this is the owner of the private key, so party_1.
-//! Send this encrypted message to party_1.
-//!
-//! ## 3. Party_1: decrypt the
-//!
-//!
-//!
-//!
-//! ## Cryptography
-//!
-//! Cryptography is a technique of securing information and communications using codes to ensure confidentiality, integrity and authentication.  
-//! Modern ciphers, such as the Advanced Encryption Standard (AES), are considered virtually unbreakable.  
-//! Secret key cryptography, also known as symmetric encryption, uses a single key to encrypt and decrypt a message.  
-//! Public key cryptography (PKC), or asymmetric cryptography, uses mathematical functions to create codes that are exceptionally difficult to crack. It enables people to communicate securely over a non-secure communications channel without the need for a secret key.  
-//! <https://www.fortinet.com/resources/cyberglossary/what-is-cryptography>
-//!
-//! ## OpenSSH
-//!
-//! OpenSSH is the premier connectivity tool for remote login with the SSH protocol. It encrypts all traffic to eliminate eavesdropping, connection hijacking, and other attacks.  
-//! Key management with ssh-add, ssh-keysign, ssh-keyscan, and ssh-keygen, ssh-agent.  
-//! <https://www.openssh.com/>
-//!
-//! Open SSH uses Ed22519 for authentication. The SSH servers has a list of public keys that are authorized. The handshake: The server sends a random message. The client signs it with the private key Ed25519. The SSH server verifies the signature with the public key Ed25519.
-//!
-//! OpenSSH comes with tools to manage keys and it is a knowledge every developer learns early and thoroughly. The private key is protected by a passphrase. For repetitive use of the same private key I can use ssh-agent to input the passphrase only once. Usually the key inside ssh-agent is time limited for example for one hour.
-//!
-//! ## bestia.dev
-//!
-//! I use Ed25519 to store encrypted values on the local disk. First I create random 32 bytes called the 'seed'. I sign it with the private key Ed25519. That becomes the password I use to symmetrically encrypt GCM the secret value. In the saved file there is in plain text the seed and the encrypted data. Only the owner of the private key Ed25519 can sign the seed to get the password to then decrypt GCM the data.
-//!
-//! ## Ed25519
-//!
-//! Ed25519 is the EdDSA signature scheme using SHA-512 (SHA-2) and an elliptic curve related to Curve25519.  
-//! In public-key cryptography, Edwards-curve Digital Signature Algorithm (EdDSA) is a digital signature scheme using a variant of Schnorr signature based on twisted Edwards curves. It is designed to be faster than existing digital signature schemes without sacrificing security.  
-//! Public keys are 256 bits long and signatures are 512 bits long.  
-//! <https://en.wikipedia.org/wiki/EdDSA#Ed25519>
-//!
-//! Ed25519 is a signature scheme. It does not do encryption.  
-//!
-//! ## X25519
-//!
-//! X25519 is the name given to the Elliptic Curve Diffie-Hellman (ECDH) key exchange built on Ed22519.  
-//! <https://medium.com/@aditrizky052/unlocking-the-power-of-curve25519-ed25519-x25519-the-modern-pillars-of-secure-and-high-speed-a3daefbad0a4>
-//!
-//! The Diffie-Hellman algorithm (DH) is used for secret key exchanges and requires two people to agree on a large prime number.  
-//! Key Exchange Algorithm KEA is a variation of the Diffie-Hellman algorithm and was proposed as a method for key exchange.  
-//! <https://www.fortinet.com/resources/cyberglossary/what-is-cryptography>
-//!
-//! ## GCM
-//!
-//! In cryptography, Galois/Counter Mode (GCM) is a mode of operation for symmetric-key cryptographic block ciphers which is widely adopted for its performance. The GCM algorithm provides data authenticity, integrity and confidentiality and belongs to the class of authenticated encryption with associated data (AEAD) methods.  
-//! <https://en.wikipedia.org/wiki/Galois/Counter_Mode>  
-//!
-//! ## Base64
-//!
-//! In computer programming, Base64 is a group of binary-to-text encoding schemes that transforms binary data into a sequence of printable characters, limited to a set of 64 unique characters. More specifically, the source binary data is taken 6 bits at a time, then this group of 6 bits is mapped to one of 64 unique characters.  
-//! The particular set of 64 characters chosen to represent the 64-digit values for the base varies between implementations. The general strategy is to choose 64 characters that are common to most encodings and that are also printable. For example, MIME's Base64 implementation uses A–Z, a–z, and 0–9 for the first 62 values. Other variations share this property but differ in the symbols chosen for the last two values.  
-//! The base64url RFC 4648 §5 standard is URL and filename-safe, where the '+' and '/' characters are replaced by '-' and '_'.  
-//! The = symbol is also used as a padding suffix. The padding character is not essential for decoding, since the number of missing bytes can be inferred from the length of the encoded text. In some implementations, the padding character is mandatory, while for others it is not used.
-//! <https://en.wikipedia.org/wiki/Base64>
-//!
-//!
-//!
-//!
-//!
-//!
-//!
-//! ## Use SSH keys, Ed22519, X25519 and GCM to encrypt and decrypt messages and files for communication
-//!
-//! With one SSH private key, we can store many secret tokens.
-//!
-//! ```bash
-//! msg_enc_dec list
-//! msg_enc_dec store token_name
-//! msg_enc_dec show token_name
-//! msg_enc_dec delete token_name
-//! ```
-//!
-//!
+//! ![image_01](images/image_01.png)  
+//! ![image_02](images/image_02.png)
 //!
 //! ## Development details
 //!
@@ -167,7 +64,7 @@
 //!
 //! ## TODO
 //!
-//! - better readme
+//! and code happy ever after
 //!
 //! ## Open-source and free as a beer
 //!
@@ -249,32 +146,32 @@ fn main() -> std::process::ExitCode {
 /// Function main() returns anyhow::Result.
 fn main_returns_anyhow_result() -> anyhow::Result<()> {
     tracing_init()?;
-    msg_enc_dec_config_initialize()?;
+    msg_enc_dec_config_initialize().log()?;
     // super simple argument parsing. There are crates that can parse more complex arguments.
     match std::env::args().nth(1).as_deref() {
-        None | Some("--help") | Some("-h") => print_help()?,
+        None | Some("--help") | Some("-h") => print_help().log()?,
         // Register completion for msg_enc_dec  with the shell command 'complete -C'.
-        Some("register_completion") => register_completion()?,
+        Some("register_completion") => register_completion().log()?,
         // When registered completion calls msg_enc_dec, the first argument is the path of the program.
         // Completion will react only on 'msg_enc_dec' as first word. Not ./msg_enc_dec or ~/msg_enc_dec,...
-        Some("msg_enc_dec") => msg_enc_dec_completion()?,
-        Some("create_ssh_key") => create_ssh_key()?,
-        Some("send_public_key") => send_public_key()?,
-        Some("receive_public_key") => receive_public_key()?,
-        Some("message_encrypt") => message_encrypt()?,
-        Some("message_decrypt") => message_decrypt()?,
+        Some("msg_enc_dec") => msg_enc_dec_completion().log()?,
+        Some("create_ssh_key") => create_ssh_key().log()?,
+        Some("send_public_key") => send_public_key().log()?,
+        Some("receive_public_key") => receive_public_key().log()?,
+        Some("message_encrypt") => message_encrypt().log()?,
+        Some("message_decrypt") => message_decrypt().log()?,
 
         Some("file_encrypt") => match std::env::args().nth(2).as_deref() {
             // second argument
             Some(file_name) => {
-                file_encrypt(file_name)?;
+                file_encrypt(file_name).log()?;
             }
             None => eprintln!("{RED}Error: Missing arguments `file_name`.{RESET}"),
         },
         Some("file_decrypt") => match std::env::args().nth(2).as_deref() {
             // second argument
             Some(file_name) => {
-                file_decrypt(file_name)?;
+                file_decrypt(file_name).log()?;
             }
             None => eprintln!("{RED}Error: Missing arguments `file_name`.{RESET}"),
         },
@@ -284,41 +181,59 @@ fn main_returns_anyhow_result() -> anyhow::Result<()> {
     Ok(())
 }
 
-/// Initialize tracing to file logs/automation_tasks_rs.log
-///
-/// The folder logs/ is in .gitignore and will not be committed.
-pub fn tracing_init() -> anyhow::Result<()> {
-    // uncomment this line to enable tracing to file
-    // and the line in tracing_subscriber with_writer(file_appender)
-    let file_appender = tracing_appender::rolling::daily("logs", "msg_enc_dec.log");
+/// Trait to log the error from Result before propagation with ?.
+pub trait ResultLogError<T, E>: Sized {
+    fn log(self) -> Self;
+}
 
+/// Implements LogError for anyhow::Result.
+impl<T, E: std::fmt::Debug> ResultLogError<T, E> for core::result::Result<T, E> {
+    #[inline(always)]
+    #[track_caller]
+    fn log(self) -> Self {
+        self.inspect_err(|err| tracing::error!(?err))
+    }
+}
+
+/// Initialize tracing to file logs/msg_enc_dec.log.  \
+///
+/// The folder logs/ is in .gitignore and will not be committed.  
+pub fn tracing_init() -> anyhow::Result<()> {
     let offset = time::UtcOffset::current_local_offset()?;
     let timer = tracing_subscriber::fmt::time::OffsetTime::new(
         offset,
         time::macros::format_description!("[hour]:[minute]:[second].[subsecond digits:6]"),
     );
 
-    // Filter out logs from: hyper_util, reqwest
     // A filter consists of one or more comma-separated directives
     // target[span{field=value}]=level
-    // examples: tokio::net=info
-    // directives can be added with the RUST_LOG environment variable:
-    // export RUST_LOG=automation_tasks_rs=trace
-    // Unset the environment variable RUST_LOG
-    // unset RUST_LOG
-    let filter = tracing_subscriber::EnvFilter::default()
-        .add_directive(tracing::level_filters::LevelFilter::DEBUG.into())
-        .add_directive("hyper_util=error".parse()?)
-        .add_directive("reqwest=error".parse()?);
+    // Levels order: 1. ERROR, 2. WARN, 3. INFO, 4. DEBUG, 5. TRACE
+    // ERROR level is always logged.
+    // Add filters to MSG_ENC_DEC_LOG environment variable for a single execution:
+    // ```bash
+    // MSG_ENC_DEC_LOG="debug,hyper_util=info,reqwest=info" ./{package_name}
+    // ```
+    let filter = tracing_subscriber::EnvFilter::from_env("MSG_ENC_DEC_LOG");
 
-    tracing_subscriber::fmt()
+    let builder = tracing_subscriber::fmt()
         .with_file(true)
         .with_timer(timer)
         .with_line_number(true)
         .with_ansi(false)
-        .with_writer(file_appender)
-        .with_env_filter(filter)
-        .init();
+        .with_env_filter(filter);
+    if std::env::var("MSG_ENC_DEC_LOG").is_ok() {
+        // if MSG_ENC_DEC_LOG exists than enable tracing to file
+        let file_appender = tracing_appender::rolling::RollingFileAppender::builder()
+            .rotation(tracing_appender::rolling::Rotation::DAILY)
+            .filename_prefix("msg_enc_dec")
+            .filename_suffix("log")
+            .build("logs")
+            .expect("initializing rolling file appender failed");
+        builder.with_writer(file_appender).init();
+    } else {
+        builder.init();
+    };
+
     Ok(())
 }
 
@@ -330,19 +245,21 @@ fn msg_enc_dec_config_initialize() -> anyhow::Result<()> {
         return Ok(());
     }
 
-    let config_path = CrossPathBuf::new(CONFIG_PATH)?;
+    let config_path = CrossPathBuf::new(CONFIG_PATH).log()?;
     if !config_path.exists() {
-        config_path.write_str_to_file(
-            r#"
+        config_path
+            .write_str_to_file(
+                r#"
 {
 "msg_enc_dec_private_key_file_name":"msg_enc_dec_ssh_1"
 }   
 "#,
-        )?;
+            )
+            .log()?;
     }
 
-    let msg_enc_dec_config_json = config_path.read_to_string()?;
-    let msg_enc_dec_config: MsgEncDecConfig = serde_json::from_str(&msg_enc_dec_config_json)?;
+    let msg_enc_dec_config_json = config_path.read_to_string().log()?;
+    let msg_enc_dec_config: MsgEncDecConfig = serde_json::from_str(&msg_enc_dec_config_json).log()?;
     MSG_ENC_DEC_CONFIG
         .set(msg_enc_dec_config)
         .expect("Static OnceLock should not error for set().");
@@ -461,14 +378,17 @@ fn create_ssh_key() -> anyhow::Result<()> {
     println!("  {YELLOW}This ssh key will be used to save locally the secret session token for the communication. {RESET}");
     let secret_passphrase: String = dialoguer::Password::new()
         .with_prompt(format!("{BLUE}Write secret passphrase{RESET}"))
-        .interact()?;
+        .interact()
+        .log()?;
 
-    let private_key = ssh_key::PrivateKey::random(&mut aes_gcm::aead::OsRng, ssh_key::Algorithm::Ed25519)?;
-    let encrypted_key = private_key.encrypt(&mut aes_gcm::aead::OsRng, secret_passphrase)?;
-    let path = CrossPathBuf::new("msg_enc_dec_ssh_1")?;
-    encrypted_key.write_openssh_file(&path.to_path_buf_current_os(), ssh_key::LineEnding::LF)?;
-    let path = CrossPathBuf::new("msg_enc_dec_ssh_1.pub")?;
-    private_key.public_key().write_openssh_file(&path.to_path_buf_current_os())?;
+    let private_key = ssh_key::PrivateKey::random(&mut aes_gcm::aead::OsRng, ssh_key::Algorithm::Ed25519).log()?;
+    let encrypted_key = private_key.encrypt(&mut aes_gcm::aead::OsRng, secret_passphrase).log()?;
+    let path = CrossPathBuf::new("msg_enc_dec_ssh_1").log()?;
+    encrypted_key
+        .write_openssh_file(&path.to_path_buf_current_os(), ssh_key::LineEnding::LF)
+        .log()?;
+    let path = CrossPathBuf::new("msg_enc_dec_ssh_1.pub").log()?;
+    private_key.public_key().write_openssh_file(&path.to_path_buf_current_os()).log()?;
 
     println!();
     println!("  {YELLOW}After create_ssh_key run 'msg_enc_dec send_public_key'. {RESET}");
@@ -482,9 +402,9 @@ fn send_public_key() -> anyhow::Result<()> {
     let static_secret: x25519_dalek::StaticSecret = x25519_dalek::StaticSecret::random();
 
     // Save the static secret encrypted into local folder.
-    let private_key_file_name = global_private_key_file_name()?;
-    let encrypted_secret_file_path = CrossPathBuf::new("static_secret.enc")?;
-    encrypt_and_save_file(&private_key_file_name, static_secret.to_bytes(), &encrypted_secret_file_path)?;
+    let private_key_file_name = global_private_key_file_name().log()?;
+    let encrypted_secret_file_path = CrossPathBuf::new("static_secret.enc").log()?;
+    encrypt_and_save_file(&private_key_file_name, static_secret.to_bytes(), &encrypted_secret_file_path).log()?;
 
     // Send the public key to the other party.
     let public_key = x25519_dalek::PublicKey::from(&static_secret);
@@ -508,19 +428,19 @@ fn encrypt_and_save_file(
     secret_bytes: [u8; 32],
     encrypted_secret_file_path: &CrossPathBuf,
 ) -> Result<(), anyhow::Error> {
-    let (plain_seed_bytes_32bytes, plain_seed_string) = ende::random_seed_32bytes_and_string()?;
-    let private_key_path = CrossPathBuf::new(private_key_file_name)?;
+    let (plain_seed_bytes_32bytes, plain_seed_string) = ende::random_seed_32bytes_and_string().log()?;
+    let private_key_path = CrossPathBuf::new(private_key_file_name).log()?;
     let secret_passcode_32bytes: SecretBox<[u8; 32]> =
-        ende::sign_seed_with_ssh_agent_or_private_key_file(&private_key_path, plain_seed_bytes_32bytes)?;
-    let secret_string = secrecy::SecretString::from(ende::encode64_from_32bytes_to_string(secret_bytes)?);
+        ende::sign_seed_with_ssh_agent_or_private_key_file(&private_key_path, plain_seed_bytes_32bytes).log()?;
+    let secret_string = secrecy::SecretString::from(ende::encode64_from_32bytes_to_string(secret_bytes).log()?);
     debug!("secret_string: {}", secret_string.expose_secret());
-    let plain_encrypted_text = ende::encrypt_symmetric(secret_passcode_32bytes, secret_string)?;
+    let plain_encrypted_text = ende::encrypt_symmetric(secret_passcode_32bytes, secret_string).log()?;
     let json_struct = EncryptedTextWithMetadata {
         plain_seed_string,
         plain_encrypted_text,
     };
-    let json_string = serde_json::to_string_pretty(&json_struct)?;
-    encrypted_secret_file_path.write_str_to_file(&json_string)?;
+    let json_string = serde_json::to_string_pretty(&json_struct).log()?;
+    encrypted_secret_file_path.write_str_to_file(&json_string).log()?;
     Ok(())
 }
 
@@ -528,27 +448,28 @@ fn encrypt_and_save_file(
 fn receive_public_key() -> anyhow::Result<()> {
     let other_public_key: String = dialoguer::Input::new()
         .with_prompt(format!("{BLUE}Copy the public key received from the other party{RESET}"))
-        .interact_text()?;
-    let other_public_key = ende::decode64_from_string_to_32bytes(&other_public_key)?;
+        .interact_text()
+        .log()?;
+    let other_public_key = ende::decode64_from_string_to_32bytes(&other_public_key).log()?;
     let other_public_key = x25519_dalek::PublicKey::from(other_public_key);
 
     // load and decrypt the static secret
-    let private_key_file_name = global_private_key_file_name()?;
-    let enc_file_path = CrossPathBuf::new("static_secret.enc")?;
-    let static_secret_bytes = load_and_decrypt(&private_key_file_name, &enc_file_path)?;
+    let private_key_file_name = global_private_key_file_name().log()?;
+    let enc_file_path = CrossPathBuf::new("static_secret.enc").log()?;
+    let static_secret_bytes = load_and_decrypt(&private_key_file_name, &enc_file_path).log()?;
     let static_secret = x25519_dalek::StaticSecret::from(static_secret_bytes);
 
     // calculate shared secret
     let shared_secret = static_secret.diffie_hellman(&other_public_key);
 
     // save encrypted shared secret
-    let private_key_file_name = global_private_key_file_name()?;
-    let encrypted_secret_file_path = CrossPathBuf::new("shared_secret.enc")?;
-    encrypt_and_save_file(&private_key_file_name, shared_secret.to_bytes(), &encrypted_secret_file_path)?;
+    let private_key_file_name = global_private_key_file_name().log()?;
+    let encrypted_secret_file_path = CrossPathBuf::new("shared_secret.enc").log()?;
+    encrypt_and_save_file(&private_key_file_name, shared_secret.to_bytes(), &encrypted_secret_file_path).log()?;
 
     // for debugging I can write the encrypted session token that is created
-    // let session_token_enc_path = CrossPathBuf::new("enc_session_token_1.txt")?;
-    // session_token_enc_path.write_str_to_file(&plain_session_token)?;
+    // let session_token_enc_path = CrossPathBuf::new("enc_session_token_1.txt").log()?;
+    // session_token_enc_path.write_str_to_file(&plain_session_token).log()?;
 
     println!("  {YELLOW}The shared secret session token is saved.{RESET}");
     println!("  {YELLOW}Now you can encrypt and decrypt messages and files.{RESET}");
@@ -562,14 +483,14 @@ fn receive_public_key() -> anyhow::Result<()> {
 
 // Load and decrypt secret.
 fn load_and_decrypt(private_key_file_name: &str, encrypted_secret_file_path: &CrossPathBuf) -> Result<[u8; 32], anyhow::Error> {
-    let encrypted_secret_file_string = encrypted_secret_file_path.read_to_string()?;
-    let json_struct: EncryptedTextWithMetadata = serde_json::from_str(&encrypted_secret_file_string)?;
-    let plain_seed_bytes_32bytes = ende::decode64_from_string_to_32bytes(&json_struct.plain_seed_string)?;
-    let private_key_path = CrossPathBuf::new(private_key_file_name)?;
+    let encrypted_secret_file_string = encrypted_secret_file_path.read_to_string().log()?;
+    let json_struct: EncryptedTextWithMetadata = serde_json::from_str(&encrypted_secret_file_string).log()?;
+    let plain_seed_bytes_32bytes = ende::decode64_from_string_to_32bytes(&json_struct.plain_seed_string).log()?;
+    let private_key_path = CrossPathBuf::new(private_key_file_name).log()?;
     let secret_passcode_32bytes: SecretBox<[u8; 32]> =
-        ende::sign_seed_with_ssh_agent_or_private_key_file(&private_key_path, plain_seed_bytes_32bytes)?;
-    let secret_string = ende::decrypt_symmetric(secret_passcode_32bytes, json_struct.plain_encrypted_text)?;
-    let secret_bytes = ende::decode64_from_string_to_32bytes(secret_string.expose_secret())?;
+        ende::sign_seed_with_ssh_agent_or_private_key_file(&private_key_path, plain_seed_bytes_32bytes).log()?;
+    let secret_string = ende::decrypt_symmetric(secret_passcode_32bytes, json_struct.plain_encrypted_text).log()?;
+    let secret_bytes = ende::decode64_from_string_to_32bytes(secret_string.expose_secret()).log()?;
     Ok(secret_bytes)
 }
 
@@ -577,27 +498,29 @@ fn load_and_decrypt(private_key_file_name: &str, encrypted_secret_file_path: &Cr
 fn global_private_key_file_name() -> Result<String, anyhow::Error> {
     let private_key_file_name = &MSG_ENC_DEC_CONFIG
         .get()
-        .context("MSG_ENC_DEC_CONFIG is None")?
+        .context("MSG_ENC_DEC_CONFIG is None")
+        .log()?
         .msg_enc_dec_private_key_file_name;
     Ok(private_key_file_name.to_string())
 }
 
 /// Encrypt message from terminal.
 fn message_encrypt() -> anyhow::Result<()> {
-    let private_key_file_name = global_private_key_file_name()?;
-    let encrypted_secret_file_path = CrossPathBuf::new("shared_secret.enc")?;
-    let shared_secret_bytes = load_and_decrypt(&private_key_file_name, &encrypted_secret_file_path)?;
+    let private_key_file_name = global_private_key_file_name().log()?;
+    let encrypted_secret_file_path = CrossPathBuf::new("shared_secret.enc").log()?;
+    let shared_secret_bytes = load_and_decrypt(&private_key_file_name, &encrypted_secret_file_path).log()?;
     // just for debug
-    // let shared_secret_string = ende::encode64_from_32bytes_to_string(shared_secret_bytes)?;
+    // let shared_secret_string = ende::encode64_from_32bytes_to_string(shared_secret_bytes).log()?;
     //println!("{shared_secret_string}");
     let shared_secret = SecretBox::new(Box::new(shared_secret_bytes));
 
     let secret_message: String = dialoguer::Input::new()
         .with_prompt(format!("{BLUE}Write secret message to encrypt{RESET}"))
-        .interact_text()?;
+        .interact_text()
+        .log()?;
     let secret_message = SecretString::from(secret_message);
     // encrypt secret message with symmetric encryption
-    let encrypted_message = ende::encrypt_symmetric(shared_secret, secret_message)?;
+    let encrypted_message = ende::encrypt_symmetric(shared_secret, secret_message).log()?;
     println!("Encrypted message:");
     println!("{encrypted_message}");
     Ok(())
@@ -605,19 +528,20 @@ fn message_encrypt() -> anyhow::Result<()> {
 
 /// Decrypt message from terminal.
 fn message_decrypt() -> anyhow::Result<()> {
-    let private_key_file_name = global_private_key_file_name()?;
-    let encrypted_secret_file_path = CrossPathBuf::new("shared_secret.enc")?;
-    let shared_secret_bytes = load_and_decrypt(&private_key_file_name, &encrypted_secret_file_path)?;
+    let private_key_file_name = global_private_key_file_name().log()?;
+    let encrypted_secret_file_path = CrossPathBuf::new("shared_secret.enc").log()?;
+    let shared_secret_bytes = load_and_decrypt(&private_key_file_name, &encrypted_secret_file_path).log()?;
     // just for debug
-    // let shared_secret_string = ende::encode64_from_32bytes_to_string(shared_secret_bytes)?;
+    // let shared_secret_string = ende::encode64_from_32bytes_to_string(shared_secret_bytes).log()?;
     //println!("{shared_secret_string}");
     let shared_secret = SecretBox::new(Box::new(shared_secret_bytes));
 
     let encrypted_message: String = dialoguer::Input::new()
         .with_prompt(format!("{BLUE}Write encrypted message to decrypt{RESET}"))
-        .interact_text()?;
+        .interact_text()
+        .log()?;
     // decrypt secret message with symmetric encryption
-    let encrypted_message = ende::decrypt_symmetric(shared_secret, encrypted_message)?;
+    let encrypted_message = ende::decrypt_symmetric(shared_secret, encrypted_message).log()?;
     println!("Decrypted message:");
     println!("{}", encrypted_message.expose_secret());
     Ok(())
@@ -625,35 +549,35 @@ fn message_decrypt() -> anyhow::Result<()> {
 
 /// Encrypt file.
 fn file_encrypt(file_name: &str) -> anyhow::Result<()> {
-    let private_key_file_name = global_private_key_file_name()?;
-    let encrypted_secret_file_path = CrossPathBuf::new("shared_secret.enc")?;
-    let shared_secret_bytes = load_and_decrypt(&private_key_file_name, &encrypted_secret_file_path)?;
+    let private_key_file_name = global_private_key_file_name().log()?;
+    let encrypted_secret_file_path = CrossPathBuf::new("shared_secret.enc").log()?;
+    let shared_secret_bytes = load_and_decrypt(&private_key_file_name, &encrypted_secret_file_path).log()?;
     // just for debug
-    // let shared_secret_string = ende::encode64_from_32bytes_to_string(shared_secret_bytes)?;
+    // let shared_secret_string = ende::encode64_from_32bytes_to_string(shared_secret_bytes).log()?;
     //println!("{shared_secret_string}");
     let shared_secret = SecretBox::new(Box::new(shared_secret_bytes));
     println!("Read file: {file_name}");
-    let vec_u8 = std::fs::read(file_name)?;
-    let encrypted = ende::encrypt_symmetric_from_bytes(shared_secret, vec_u8)?;
+    let vec_u8 = std::fs::read(file_name).log()?;
+    let encrypted = ende::encrypt_symmetric_from_bytes(shared_secret, vec_u8).log()?;
     println!("Saved encrypted file: {file_name}.enc");
-    std::fs::write(format!("{file_name}.enc"), encrypted)?;
+    std::fs::write(format!("{file_name}.enc"), encrypted).log()?;
     Ok(())
 }
 
 /// Decrypt file.
 fn file_decrypt(file_name: &str) -> anyhow::Result<()> {
-    let private_key_file_name = global_private_key_file_name()?;
-    let encrypted_secret_file_path = CrossPathBuf::new("shared_secret.enc")?;
-    let shared_secret_bytes = load_and_decrypt(&private_key_file_name, &encrypted_secret_file_path)?;
+    let private_key_file_name = global_private_key_file_name().log()?;
+    let encrypted_secret_file_path = CrossPathBuf::new("shared_secret.enc").log()?;
+    let shared_secret_bytes = load_and_decrypt(&private_key_file_name, &encrypted_secret_file_path).log()?;
     // just for debug
-    // let shared_secret_string = ende::encode64_from_32bytes_to_string(shared_secret_bytes)?;
+    // let shared_secret_string = ende::encode64_from_32bytes_to_string(shared_secret_bytes).log()?;
     //println!("{shared_secret_string}");
     let shared_secret = SecretBox::new(Box::new(shared_secret_bytes));
     println!("Read encrypted file: {file_name}.enc");
-    let encrypted_file = std::fs::read_to_string(format!("{file_name}.enc"))?;
+    let encrypted_file = std::fs::read_to_string(format!("{file_name}.enc")).log()?;
     // decrypt secret message with symmetric encryption
-    let decrypted_file = ende::decrypt_symmetric_to_bytes(shared_secret, encrypted_file)?;
+    let decrypted_file = ende::decrypt_symmetric_to_bytes(shared_secret, encrypted_file).log()?;
     println!("Saved decrypted file: {file_name}");
-    std::fs::write(file_name, decrypted_file)?;
+    std::fs::write(file_name, decrypted_file).log()?;
     Ok(())
 }
