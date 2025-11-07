@@ -1,6 +1,6 @@
 [package]
 name = "msg_enc_dec"
-version = "1.0.21"
+version = "1.0.25"
 description = "Use SSH keys, Ed22519, X25519 and GCM to encrypt and decrypt messages and files for communication"
 authors = ["bestia.dev"]
 homepage = "https://bestia.dev"

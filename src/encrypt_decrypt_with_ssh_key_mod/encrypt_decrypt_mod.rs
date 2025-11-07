@@ -6,6 +6,7 @@
 //! cargo auto update_automation_tasks_rs
 //! If you want to customize it, copy the code into main.rs and modify it there.
 
+use crate::pos;
 use crate::{ResultLogError, BLUE, GREEN, RED, RESET, YELLOW};
 use base64ct::{Base64UrlUnpadded, Encoding};
 use crossplatform_path::CrossPathBuf;
@@ -21,7 +22,7 @@ pub(crate) fn random_seed_32bytes_and_string() -> anyhow::Result<([u8; 32], Stri
     let mut seed_32bytes = [0_u8; 32];
     use aes_gcm::aead::rand_core::RngCore;
     aes_gcm::aead::OsRng.fill_bytes(&mut seed_32bytes);
-    let plain_seed_string = encode64_from_32bytes_to_string(seed_32bytes).log()?;
+    let plain_seed_string = encode64_from_32bytes_to_string(seed_32bytes).log(pos!())?;
     Ok((seed_32bytes, plain_seed_string))
 }
 
@@ -34,9 +35,9 @@ pub(crate) fn open_file_b64_get_string(plain_file_b64_path: &CrossPathBuf) -> an
         anyhow::bail!("{RED}Error: File {plain_file_b64_path} does not exist! {RESET}");
     }
 
-    let plain_file_text = plain_file_b64_path.read_to_string().log()?;
+    let plain_file_text = plain_file_b64_path.read_to_string().log(pos!())?;
     // it is encoded just to obscure it a little
-    let plain_file_text = decode64_from_string_to_string(&plain_file_text).log()?;
+    let plain_file_text = decode64_from_string_to_string(&plain_file_text).log(pos!())?;
 
     Ok(plain_file_text)
 }
@@ -61,8 +62,8 @@ pub(crate) fn encode64_from_32bytes_to_string(bytes_32bytes: [u8; 32]) -> anyhow
 
 /// Decode Base64UrlUnpadded from string to 32bytes.
 pub(crate) fn decode64_from_string_to_32bytes(plain_seed_string: &str) -> anyhow::Result<[u8; 32]> {
-    let plain_seed_bytes = Base64UrlUnpadded::decode_vec(plain_seed_string).log()?;
-    let plain_seed_bytes_32bytes = shorten_vec_bytes_to_32bytes(plain_seed_bytes).log()?;
+    let plain_seed_bytes = Base64UrlUnpadded::decode_vec(plain_seed_string).log(pos!())?;
+    let plain_seed_bytes_32bytes = shorten_vec_bytes_to_32bytes(plain_seed_bytes).log(pos!())?;
     Ok(plain_seed_bytes_32bytes)
 }
 
@@ -83,7 +84,7 @@ pub(crate) fn encode64_from_string_to_string(string_to_encode: &str) -> String {
 ///
 /// It is a silly little obfuscation just to avoid using plain text.
 pub(crate) fn decode64_from_string_to_string(string_to_decode: &str) -> anyhow::Result<String> {
-    let decoded_string = String::from_utf8(Base64UrlUnpadded::decode_vec(string_to_decode).log()?).log()?;
+    let decoded_string = String::from_utf8(Base64UrlUnpadded::decode_vec(string_to_decode).log(pos!())?).log(pos!())?;
     Ok(decoded_string)
 }
 
@@ -140,7 +141,7 @@ fn sign_seed_with_ssh_agent(plain_seed_bytes_32bytes: [u8; 32], private_key_path
         client: &mut ssh_agent_client_rs_git_bash::Client,
         fingerprint_from_file: &str,
     ) -> anyhow::Result<ssh_key::PublicKey> {
-        let vec_identities = client.list_all_identities().log()?;
+        let vec_identities = client.list_all_identities().log(pos!())?;
         for identity in vec_identities.iter() {
             if let ssh_agent_client_rs_git_bash::Identity::PublicKey(public_key) = identity {
                 let fingerprint_from_agent = public_key.key_data().fingerprint(Default::default()).to_string();
@@ -152,26 +153,29 @@ fn sign_seed_with_ssh_agent(plain_seed_bytes_32bytes: [u8; 32], private_key_path
         }
         anyhow::bail!("This private key is not added to ssh-agent.")
     }
-    let public_key_path = private_key_path.replace_extension("pub").log()?;
-    let public_key = ssh_key::PublicKey::read_openssh_file(&public_key_path.to_path_buf_current_os()).log()?;
+    let public_key_path = private_key_path.replace_extension("pub").log(pos!())?;
+    let public_key = ssh_key::PublicKey::read_openssh_file(&public_key_path.to_path_buf_current_os()).log(pos!())?;
     let fingerprint_from_file = public_key.fingerprint(Default::default()).to_string();
 
     println!("  {YELLOW}Connect to ssh-agent on SSH_AUTH_SOCK{RESET}");
-    let var_ssh_auth_sock = std::env::var("SSH_AUTH_SOCK").log()?;
-    let path_ssh_auth_sock = CrossPathBuf::new(&var_ssh_auth_sock).log()?;
+    let var_ssh_auth_sock = std::env::var("SSH_AUTH_SOCK").log(pos!())?;
+    let path_ssh_auth_sock = CrossPathBuf::new(&var_ssh_auth_sock).log(pos!())?;
     // import trait into scope
     use ssh_agent_client_rs_git_bash::GitBash;
     let mut ssh_agent_client =
-        ssh_agent_client_rs_git_bash::Client::connect_to_git_bash_or_linux(&path_ssh_auth_sock.to_path_buf_current_os()).log()?;
+        ssh_agent_client_rs_git_bash::Client::connect_to_git_bash_or_linux(&path_ssh_auth_sock.to_path_buf_current_os()).log(pos!())?;
 
-    let public_key = public_key_from_ssh_agent(&mut ssh_agent_client, &fingerprint_from_file).log()?;
+    let public_key = public_key_from_ssh_agent(&mut ssh_agent_client, &fingerprint_from_file).log(pos!())?;
 
     let mut secret_passcode_32bytes = SecretBox::new(Box::new([0u8; 32]));
     // sign with public key from ssh-agent
     // only the data part of the signature goes into as_bytes.
-    secret_passcode_32bytes
-        .expose_secret_mut()
-        .copy_from_slice(&ssh_agent_client.sign(&public_key, &plain_seed_bytes_32bytes).log()?.as_bytes()[0..32]);
+    secret_passcode_32bytes.expose_secret_mut().copy_from_slice(
+        &ssh_agent_client
+            .sign(&public_key, &plain_seed_bytes_32bytes)
+            .log(pos!())?
+            .as_bytes()[0..32],
+    );
 
     Ok(secret_passcode_32bytes)
 }
@@ -190,29 +194,29 @@ fn sign_seed_with_private_key_file(
         println!();
         println!("{BLUE}Enter the passphrase for the SSH private key:{RESET}");
 
-        let secret_passphrase = SecretString::from(dialoguer::Password::new().with_prompt("").interact().log()?.to_string());
+        let secret_passphrase = SecretString::from(dialoguer::Password::new().with_prompt("").interact().log(pos!())?.to_string());
         if secret_passphrase.expose_secret().is_empty() {
             anyhow::bail!("Passphrase empty");
         }
         Ok(secret_passphrase)
     }
     // the user is the only one that knows the passphrase to unlock the private key
-    let secret_user_passphrase: SecretString = user_input_secret_passphrase().log()?;
+    let secret_user_passphrase: SecretString = user_input_secret_passphrase().log(pos!())?;
 
     // sign_with_ssh_private_key_file
     println!("  {YELLOW}Use ssh private key from file {RESET}");
     debug!("private_key_file_path: {private_key_file_path}");
-    let private_key = ssh_key::PrivateKey::read_openssh_file(&private_key_file_path.to_path_buf_current_os()).log()?;
+    let private_key = ssh_key::PrivateKey::read_openssh_file(&private_key_file_path.to_path_buf_current_os()).log(pos!())?;
     println!("  {YELLOW}Unlock the private key {RESET}");
 
     // cannot use secrecy: PrivateKey does not have trait Zeroize
-    let mut secret_private_key = private_key.decrypt(secret_user_passphrase.expose_secret()).log()?;
+    let mut secret_private_key = private_key.decrypt(secret_user_passphrase.expose_secret()).log(pos!())?;
     debug!("{}", secret_private_key.comment());
     // FYI: this type of signature is compatible with ssh-agent because it does not involve namespace
     println!("  {YELLOW}Sign the seed {RESET}");
 
     let mut secret_passcode_32bytes = SecretBox::new(Box::new([0u8; 32]));
-    let signature = rsa::signature::SignerMut::try_sign(&mut secret_private_key, &plain_seed_bytes_32bytes).log()?;
+    let signature = rsa::signature::SignerMut::try_sign(&mut secret_private_key, &plain_seed_bytes_32bytes).log(pos!())?;
     // only the data part of the signature goes into as_bytes.
     // only the first 32 bytes
     secret_passcode_32bytes
@@ -250,8 +254,8 @@ pub(crate) fn decrypt_symmetric(
     secret_passcode_32bytes: SecretBox<[u8; 32]>,
     plain_encrypted_string: String,
 ) -> anyhow::Result<SecretString> {
-    let secret_decrypted_bytes = decrypt_symmetric_to_bytes(secret_passcode_32bytes, plain_encrypted_string).log()?;
-    let secret_decrypted_string = SecretString::from(String::from_utf8(secret_decrypted_bytes).log()?);
+    let secret_decrypted_bytes = decrypt_symmetric_to_bytes(secret_passcode_32bytes, plain_encrypted_string).log(pos!())?;
+    let secret_decrypted_string = SecretString::from(String::from_utf8(secret_decrypted_bytes).log(pos!())?);
     Ok(secret_decrypted_string)
 }
 
@@ -272,7 +276,7 @@ pub(crate) fn encrypt_symmetric_from_bytes(
         secret_bytes_to_encrypt.as_slice(),
     )
     .map_err(|err| anyhow::anyhow!(err))
-    .log()?;
+    .log(pos!())?;
 
     let mut encrypted_bytes = nonce.to_vec();
     encrypted_bytes.extend_from_slice(&cipher_text_encrypted);
@@ -290,7 +294,7 @@ pub(crate) fn decrypt_symmetric_to_bytes(
     secret_passcode_32bytes: SecretBox<[u8; 32]>,
     plain_encrypted_string: String,
 ) -> anyhow::Result<Vec<u8>> {
-    let encrypted_bytes = Base64UrlUnpadded::decode_vec(&plain_encrypted_string).log()?;
+    let encrypted_bytes = Base64UrlUnpadded::decode_vec(&plain_encrypted_string).log(pos!())?;
     // nonce is salt
     let nonce = &encrypted_bytes[..12];
     let cipher_text = &encrypted_bytes[12..];
@@ -302,7 +306,7 @@ pub(crate) fn decrypt_symmetric_to_bytes(
         cipher_text,
     )
     .map_err(|err| anyhow::anyhow!(err))
-    .log()?;
+    .log(pos!())?;
 
     Ok(secret_decrypted_bytes)
 }
