@@ -333,6 +333,9 @@ line 1 column 1828 - Warning: trimming empty <button>
 This document has errors that must be fixed before
 using HTML Tidy to generate a tidied up version.
 
+./docs/msg_enc_dec/macro.pos!.html
+Document: "2" is not a file!
+
 ./docs/msg_enc_dec/constant.RED.html
 Document: "2" is not a file!
 
@@ -463,6 +466,19 @@ line 1 column 1860 - Warning: trimming empty <button>
 This document has errors that must be fixed before
 using HTML Tidy to generate a tidied up version.
 
+./docs/msg_enc_dec/macro.pos.html
+Document: "2" is not a file!
+
+line 1 column 2262 - Error: <rustdoc-search> is not recognized! Did you mean to enable the custom-tags option?
+line 1 column 2262 - Warning: discarding unexpected <rustdoc-search>
+line 1 column 2278 - Warning: discarding unexpected </rustdoc-search>
+line 1 column 2566 - Error: <rustdoc-toolbar> is not recognized! Did you mean to enable the custom-tags option?
+line 1 column 2566 - Warning: discarding unexpected <rustdoc-toolbar>
+line 1 column 2583 - Warning: discarding unexpected </rustdoc-toolbar>
+line 1 column 1862 - Warning: trimming empty <button>
+This document has errors that must be fixed before
+using HTML Tidy to generate a tidied up version.
+
 ./docs/msg_enc_dec/fn.msg_enc_dec_completion.html
 Document: "2" is not a file!
 
@@ -540,9 +556,9 @@ using HTML Tidy to generate a tidied up version.
 ./docs/msg_enc_dec/all.html
 Document: "2" is not a file!
 
-line 1 column 2575 - Error: <rustdoc-search> is not recognized! Did you mean to enable the custom-tags option?
-line 1 column 2575 - Warning: discarding unexpected <rustdoc-search>
-line 1 column 2591 - Warning: discarding unexpected </rustdoc-search>
+line 1 column 2626 - Error: <rustdoc-search> is not recognized! Did you mean to enable the custom-tags option?
+line 1 column 2626 - Warning: discarding unexpected <rustdoc-search>
+line 1 column 2642 - Warning: discarding unexpected </rustdoc-search>
 line 1 column 1789 - Warning: trimming empty <button>
 This document has errors that must be fixed before
 using HTML Tidy to generate a tidied up version.
@@ -550,17 +566,12 @@ using HTML Tidy to generate a tidied up version.
 ./docs/msg_enc_dec/index.html
 Document: "2" is not a file!
 
-line 1 column 3424 - Error: <rustdoc-search> is not recognized! Did you mean to enable the custom-tags option?
-line 1 column 3424 - Warning: discarding unexpected <rustdoc-search>
-line 1 column 3440 - Warning: discarding unexpected </rustdoc-search>
-line 1 column 3647 - Error: <rustdoc-toolbar> is not recognized! Did you mean to enable the custom-tags option?
-line 1 column 3647 - Warning: discarding unexpected <rustdoc-toolbar>
-line 1 column 3664 - Warning: discarding unexpected </rustdoc-toolbar>
-line 11 column 4 - Warning: <a> attribute "href" lacks value
-line 12 column 1 - Warning: <a> attribute "href" lacks value
-line 13 column 1 - Warning: <a> attribute "href" lacks value
-line 14 column 1 - Warning: <a> attribute "href" lacks value
-line 15 column 1 - Warning: <a> attribute "href" lacks value
+line 1 column 3476 - Error: <rustdoc-search> is not recognized! Did you mean to enable the custom-tags option?
+line 1 column 3476 - Warning: discarding unexpected <rustdoc-search>
+line 1 column 3492 - Warning: discarding unexpected </rustdoc-search>
+line 1 column 3699 - Error: <rustdoc-toolbar> is not recognized! Did you mean to enable the custom-tags option?
+line 1 column 3699 - Warning: discarding unexpected <rustdoc-toolbar>
+line 1 column 3716 - Warning: discarding unexpected </rustdoc-toolbar>
 line 1 column 1816 - Warning: trimming empty <button>
 This document has errors that must be fixed before
 using HTML Tidy to generate a tidied up version.
