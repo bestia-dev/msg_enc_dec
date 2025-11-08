@@ -1,6 +1,6 @@
 [package]
 name = "msg_enc_dec"
-version = "1.0.25"
+version = "1.0.26"
 description = "Use SSH keys, Ed22519, X25519 and GCM to encrypt and decrypt messages and files for communication"
 authors = ["bestia.dev"]
 homepage = "https://bestia.dev"
@@ -26,23 +26,23 @@ include = [
 # the minimum version and allow automatic SemVer compatible updates up to a MAJOR increment! Always check the true version with `cargo tree`!
 [dependencies]
 tracing = "0.1.41"
-tracing-subscriber = { version = "0.3.19", features = ["env-filter", "std", "fmt", "time"] }
+tracing-subscriber = { version = "0.3.20", features = ["env-filter", "std", "fmt", "time"] }
 tracing-appender="0.2.3"
-time = {version="0.3.39", features=["macros","local-offset"]}
+time = {version="0.3.44", features=["macros","local-offset"]}
 
 thiserror = "2.0.17"
-anyhow="1.0.97"
+anyhow="1.0.100"
 reqwest={version="0.12.24", default-features = false, features=["json","blocking", "rustls-tls"]}
-serde ={ version= "1.0.219", features=["std","derive"]}
-serde_json = "1.0.140"
+serde ={ version= "1.0.228", features=["std","derive"]}
+serde_json = "1.0.145"
 ssh-key = { version = "0.6.7", features = [ "rsa", "encryption"] }
 ssh_agent_client_rs_git_bash = "0.0.19"
 rsa = { version = "0.9.8", features = ["sha2"] }
-zeroize = {version="1.8.1", features=["derive"]}
+zeroize = {version="1.8.2", features=["derive"]}
 aes-gcm = "0.10.3"
-camino = "1.1.9"
-base64ct = {version = "1.7.3", features = ["alloc"] }
+camino = "1.2.1"
+base64ct = {version = "1.8.0", features = ["alloc"] }
 secrecy = "0.10.3"
-crossplatform_path="3.0.3"
+crossplatform_path="4.0.1"
 x25519-dalek={ version = "2.0.1", features=["getrandom","static_secrets"]}
 dialoguer ={version= "0.12.0", features=["password"]}

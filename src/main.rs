@@ -4,7 +4,7 @@
 //! # msg_enc_dec
 //!
 //! **Use SSH keys, Ed22519, X25519 and GCM to encrypt and decrypt messages and files for communication**  
-//! ***version: 1.0.25 date: 2025-11-07 author: [bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/msg_enc_dec)***
+//! ***version: 1.0.26 date: 2025-11-08 author: [bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/msg_enc_dec)***
 //!
 //!  ![maintained](https://img.shields.io/badge/maintained-green)
 //!  ![ready-for-use](https://img.shields.io/badge/ready_for_use-green)
@@ -201,7 +201,7 @@ pub trait ResultLogError<T, E>: Sized {
 /// Implements LogError for anyhow::Result.
 impl<T, E: std::fmt::Debug> ResultLogError<T, E> for core::result::Result<T, E> {
     fn log(self, file_line_column: &str) -> Self {
-        self.inspect_err(|err| tracing::error!("{} {:?}", file_line_column, err))
+        self.inspect_err(|err| tracing::debug!("{} {:?}", file_line_column, err))
     }
 }
 

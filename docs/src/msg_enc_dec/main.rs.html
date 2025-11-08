@@ -4,7 +4,7 @@
 <a href=#4 id=4 data-nosnippet>4</a></span><span class="doccomment">//! # msg_enc_dec
 <a href=#5 id=5 data-nosnippet>5</a>//!
 <a href=#6 id=6 data-nosnippet>6</a>//! **Use SSH keys, Ed22519, X25519 and GCM to encrypt and decrypt messages and files for communication**  
-<a href=#7 id=7 data-nosnippet>7</a>//! ***version: 1.0.25 date: 2025-11-07 author: [bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/msg_enc_dec)***
+<a href=#7 id=7 data-nosnippet>7</a>//! ***version: 1.0.26 date: 2025-11-08 author: [bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/msg_enc_dec)***
 <a href=#8 id=8 data-nosnippet>8</a>//!
 <a href=#9 id=9 data-nosnippet>9</a>//!  ![maintained](https://img.shields.io/badge/maintained-green)
 <a href=#10 id=10 data-nosnippet>10</a>//!  ![ready-for-use](https://img.shields.io/badge/ready_for_use-green)
@@ -201,7 +201,7 @@
 <a href=#201 id=201 data-nosnippet>201</a><span class="doccomment">/// Implements LogError for anyhow::Result.
 <a href=#202 id=202 data-nosnippet>202</a></span><span class="kw">impl</span>&lt;T, E: std::fmt::Debug&gt; ResultLogError&lt;T, E&gt; <span class="kw">for </span>core::result::Result&lt;T, E&gt; {
 <a href=#203 id=203 data-nosnippet>203</a>    <span class="kw">fn </span>log(<span class="self">self</span>, file_line_column: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-<a href=#204 id=204 data-nosnippet>204</a>        <span class="self">self</span>.inspect_err(|err| <span class="macro">tracing::error!</span>(<span class="string">"{} {:?}"</span>, file_line_column, err))
+<a href=#204 id=204 data-nosnippet>204</a>        <span class="self">self</span>.inspect_err(|err| <span class="macro">tracing::debug!</span>(<span class="string">"{} {:?}"</span>, file_line_column, err))
 <a href=#205 id=205 data-nosnippet>205</a>    }
 <a href=#206 id=206 data-nosnippet>206</a>}
 <a href=#207 id=207 data-nosnippet>207</a>
